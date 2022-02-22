@@ -26,26 +26,10 @@ try {
     $pdo = new DB();
     $request = $pdo->getInstance();
 
-    $sql=$request->prepare( "
-    INSERT INTO user (nom ,prenom ,rue ,numero , code_postal ,ville ,pays ,mail)
-    VALUES (:nom ,:prenom ,:rue ,:numero ,:codepostal ,:ville ,:pays ,:mail)
-    ");
-
-    $sql ->bindParam(':nom' ,$name);
-    $sql ->bindParam(':prenom' ,$fname);
-    $sql ->bindParam(':rue' ,$rue);
-    $sql ->bindParam(':numero' ,$num, PDO::PARAM_INT);
-    $sql ->bindParam(':codepostal' ,$code, PDO::PARAM_INT);
-    $sql ->bindParam(':ville' ,$ville);
-    $sql ->bindParam(':pays' ,$pays);
-    $sql ->bindParam(':mail' ,$mail);
-
-
-
-
-    $sql->execute();
-        echo "un new user a était ajouter ";
-
+    $sql = "DROP TABLE user ";
+    if ($request->exec($sql) !==false) {
+        echo " la table user a completement etait supprimée !!";
+    }
 }
 
 catch (PDOException $e){
