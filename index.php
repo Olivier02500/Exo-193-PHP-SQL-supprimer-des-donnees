@@ -10,3 +10,44 @@
  *    --> Finalement, vous décidez de supprimer complètement la table
  *    --> Et pour finir, comme vous n'avez plus de table dans la base de données, vous décidez de supprimer aussi la base de données.
  */
+
+require __DIR__ . "/Classes/DB.php";
+
+$name = 'Didier';
+$fname = 'Machin';
+$rue = 'rue de nul pars';
+$num = 12;
+$code = 75690;
+$ville = 'nice';
+$pays = 'france';
+$mail = 'didierM@machin.fr';
+
+try {
+    $pdo = new DB();
+    $request = $pdo->getInstance();
+
+    $sql=$request->prepare( "
+    INSERT INTO user (nom ,prenom ,rue ,numero , code_postal ,ville ,pays ,mail)
+    VALUES (:nom ,:prenom ,:rue ,:numero ,:codepostal ,:ville ,:pays ,:mail)
+    ");
+
+    $sql ->bindParam(':nom' ,$name);
+    $sql ->bindParam(':prenom' ,$fname);
+    $sql ->bindParam(':rue' ,$rue);
+    $sql ->bindParam(':numero' ,$num, PDO::PARAM_INT);
+    $sql ->bindParam(':codepostal' ,$code, PDO::PARAM_INT);
+    $sql ->bindParam(':ville' ,$ville);
+    $sql ->bindParam(':pays' ,$pays);
+    $sql ->bindParam(':mail' ,$mail);
+
+
+
+
+    $sql->execute();
+        echo "un new user a était ajouter ";
+
+}
+
+catch (PDOException $e){
+    echo $e->getMessage();
+}
