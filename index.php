@@ -13,23 +13,13 @@
 
 require __DIR__ . "/Classes/DB.php";
 
-$name = 'Didier';
-$fname = 'Machin';
-$rue = 'rue de nul pars';
-$num = 12;
-$code = 75690;
-$ville = 'nice';
-$pays = 'france';
-$mail = 'didierM@machin.fr';
 
 try {
     $pdo = new DB();
     $request = $pdo->getInstance();
 
-    $sql = "DROP TABLE user ";
-    if ($request->exec($sql) !==false) {
-        echo " la table user a completement etait supprimée !!";
-    }
+    $sql = "DROP DATABASE sql-test";
+    $request->exec($sql);
 }
 
 catch (PDOException $e){
